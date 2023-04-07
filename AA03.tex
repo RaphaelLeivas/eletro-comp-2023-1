@@ -291,7 +291,7 @@ Com esses nós e o desenho das funções de base, temos as expressões das funç
     \end{cases}
 \]
 
-Conhecidas as funções de base, agora precisamos encontrar as matrizes $K$, $d$ e $F$ do sistema matricial de \eqref{eqkdf}. 
+Conhecidas as funções de base, agora precisamos encontrar as matrizes $K$, $d$ e $F$ do sistema matricial de \eqref{eqkdf}.
 Sabemos que a matriz $K$ é $3 \times 3$ da forma
 
 \begingroup
@@ -369,9 +369,9 @@ Assim, a matriz $K$ e sua inversa $K^{-1}$ são dadas por
     \end{bmatrix}
     \logo K^{-1} = \frac{1}{3}
     \begin{bmatrix}
-        3  & 2 & 1  \\
-        2 & 2  & 1 \\
-        1  & 1 & 1
+        3 & 2 & 1 \\
+        2 & 2 & 1 \\
+        1 & 1 & 1
     \end{bmatrix}
 \]
 
@@ -380,29 +380,29 @@ Assim, a matriz $K$ e sua inversa $K^{-1}$ são dadas por
 O próximo passo é calcular o vetor de forças $F$. Calculando um elemento de cada vez, temos
 
 \[
-    F_1 = (N_1, f) + N_1(0)h - a\left(N_1, qN_4\right) = 
-    \int_{0}^{1} \rho N_1(x) \, dx + (1)h - \int_{0}^{1} N_{1_x} qN_{4_x} 
+    F_1 = (N_1, f) + N_1(0)h - a\left(N_1, qN_4\right) =
+    \int_{0}^{1} \rho N_1(x) \, dx + (1)h - \int_{0}^{1} N_{1_x} qN_{4_x}
 \]
 
 \[
     = \rho \int_{0}^{\frac{1}{3}}  1 - 3x \, dx + h - 0 = \rho \left[x - 3\frac{x^2}{2}\right]_{0}^{\frac{1}{3}} + h
-     = \rho \left(\frac{1}{3} - \frac{3}{2}\frac{1}{9}\right) + h = h + \frac{1}{6}\rho
+    = \rho \left(\frac{1}{3} - \frac{3}{2}\frac{1}{9}\right) + h = h + \frac{1}{6}\rho
 \]
 
 \[
-    F_2 = (N_2, f) + N_2(0)h - a\left(N_2, qN_4\right) = 
+    F_2 = (N_2, f) + N_2(0)h - a\left(N_2, qN_4\right) =
     \int_{0}^{1} \rho N_2(x) \, dx
 \]
 
 \[
     = \rho \left[\int_{0}^{\frac{1}{3}}  3x \, dx  + \int_{\frac{1}{3}}^{\frac{2}{3}}  2 - 3x \, dx\right] =
     \rho \left[\frac{3}{2}\frac{1}{9} + \left(2x - \frac{3}{2}x^2\right)_{\frac{1}{3}}^{\frac{2}{3}}  \right]
-    = \rho \left(\frac{1}{6} + \frac{1}{6}\right) = \frac{1}{3}\rho 
+    = \rho \left(\frac{1}{6} + \frac{1}{6}\right) = \frac{1}{3}\rho
 \]
 
 \[
-    F_3 = (N_3, f) + N_3(0)h - a\left(N_3, qN_4\right) = 
-    \int_{0}^{1} \rho N_3(x) \, dx - \int_{\frac{2}{3}}^{1} N_{3_x} qN_{4_x} \, dx 
+    F_3 = (N_3, f) + N_3(0)h - a\left(N_3, qN_4\right) =
+    \int_{0}^{1} \rho N_3(x) \, dx - \int_{\frac{2}{3}}^{1} N_{3_x} qN_{4_x} \, dx
 \]
 
 \[
@@ -418,8 +418,8 @@ Assim, temos o vetor de forças
 \[
     F =
     \begin{bmatrix}
-        h + \frac{1}{6}\rho    \\
-        \frac{1}{3}\rho    \\
+        h + \frac{1}{6}\rho \\
+        \frac{1}{3}\rho     \\
         \rho \frac{1}{3} + 3q
     \end{bmatrix}
 \]
@@ -433,72 +433,70 @@ Finalmente, usando \eqref{eqdkf}, o sistema matricial que nos dá a solução do
 
 \[
     \begin{bmatrix}
-        d_1    \\
-        d_2    \\
+        d_1 \\
+        d_2 \\
         d_3
     \end{bmatrix} =
     \frac{1}{3}
     \begin{bmatrix}
-        3  & 2 & 1  \\
-        2 & 2  & 1 \\
-        1  & 1 & 1
+        3 & 2 & 1 \\
+        2 & 2 & 1 \\
+        1 & 1 & 1
     \end{bmatrix}
     \begin{bmatrix}
-        h + \frac{1}{6}\rho    \\
-        \frac{1}{3}\rho    \\
+        h + \frac{1}{6}\rho \\
+        \frac{1}{3}\rho     \\
         \rho \frac{1}{3} + 3q
     \end{bmatrix}
 \]
 
 \endgroup
 
-Substituindo os valores do enunciado do problema, 
+Substituindo os valores do enunciado do problema,
 
 \begingroup
 \renewcommand*{\arraystretch}{2}
 
 \[
     \begin{bmatrix}
-        d_1    \\
-        d_2    \\
+        d_1 \\
+        d_2 \\
         d_3
     \end{bmatrix} =
     \frac{1}{3}
     \begin{bmatrix}
-        3  & 2 & 1  \\
-        2 & 2  & 1 \\
-        1  & 1 & 1
+        3 & 2 & 1 \\
+        2 & 2 & 1 \\
+        1 & 1 & 1
     \end{bmatrix}
     \begin{bmatrix}
         \frac{11}{6} \\
-        \frac{5}{3} \\
-        \frac{14}{3} 
+        \frac{5}{3}  \\
+        \frac{14}{3}
     \end{bmatrix}
     \logo
     \begin{bmatrix}
-        d_1    \\
-        d_2    \\
+        d_1 \\
+        d_2 \\
         d_3
     \end{bmatrix} =
     \begin{bmatrix}
-        \frac{9}{2} \\
+        \frac{9}{2}  \\
         \frac{35}{9} \\
-        \frac{49}{18} 
+        \frac{49}{18}
     \end{bmatrix}
 \]
 
 \endgroup
 
-Assim, a solução do problema encontrada pelo FEM é   
+Assim, a solução do problema encontrada pelo FEM é
 
 \begin{equation}\label{eqUfem}
     \boxed{u^h(x) = \frac{9}{2}N_1(x) + \frac{35}{9}N_2(x) + \frac{49}{18}N_3(x) + N_{4}(x)}
 \end{equation}
 
-
-Plotando a solução obtida pelo FEM \eqref{eqUfem} e a solução analítica \eqref{eqUsubstituida} com o software online Desmos, 
+Plotando a solução obtida pelo FEM \eqref{eqUfem} e a solução analítica \eqref{eqUsubstituida} com o software online Desmos,
 temos
-
 
 \begin{center}
     \includegraphics[scale=0.35]{grafico_ux_AA03.png}
@@ -509,8 +507,63 @@ temos
 \end{center}
 
 A curva vermelha se refere à solução $u(x)$ analítica, e as demais retas são as soluções encontradas pelo FEM com três graus de liberdade.
-\newline 
-Podemos fazer a mesma análise gráfica com as derivadas das soluções.
+É possível ver que, com apenas três graus de liberdade, o FEM se aproxima da solução analítica com bastante precisão e baixo erro.
+Além disso, nos 4 nós selecionados, temos que a solução do FEM é igual à solução analítica.
+\newline
+Podemos fazer a mesma análise gráfica com as derivadas das soluções. A derivada $u_x$ da solução analítica é
+
+\begin{equation}\label{eqDu}
+    u_x(x) = -5x - 1
+\end{equation}
+
+A derivada da solução do FEM é
+
+\begin{equation}\label{eqUfemD}
+    u_x^h(x) = \frac{9}{2}N_{1_x}(x) + \frac{35}{9}N_{2_x}(x) + \frac{49}{18}N_{3_x}(x) + N_{4_x}(x)
+\end{equation}
+
+onde
+
+\[
+    N_{1_x}(x) = \begin{cases}
+        -3, & 0 \leq x \leq \frac{1}{3} \\
+        \noalign{\vskip9pt}
+        0,      & \textrm{caso contrário}
+    \end{cases}
+    \quad , \quad
+    N_{2_x}(x) = \begin{cases}
+        3,     & 0 \leq x \leq \frac{1}{3}           \\
+        \noalign{\vskip9pt}
+        -3, & \frac{1}{3} \leq x \leq \frac{2}{3} \\
+        \noalign{\vskip9pt}
+        0,      & \textrm{caso contrário}
+    \end{cases}
+\]
+
+\[
+    N_{3_x}(x) = \begin{cases}
+        3, & \frac{1}{3} \leq x \leq \frac{2}{3} \\
+        \noalign{\vskip9pt}
+        -3, & \frac{2}{3} \leq x \leq 1           \\
+        \noalign{\vskip9pt}
+        0,      & \textrm{caso contrário}
+    \end{cases}
+    \quad , \quad
+    N_{4_x}(x) = \begin{cases}
+        3, & \frac{2}{3} \leq x \leq 1 \\
+        \noalign{\vskip9pt}
+        0,      & \textrm{caso contrário}
+    \end{cases}
+\]
+
+Assim, plotando \eqref{eqDu} e \eqref{eqUfemD} no Desmos, temos
+
+\begin{center}
+    \includegraphics[scale=0.35]{grafico_dudx_AA03.png}
+\end{center}
+
+Vemos que a derivada da solução analítica (curva azul) é igual à derivada da solução do FEM (demais curvas da imagem) em 
+apenas em três pontos, que corresponde aos três graus de liberdades adotado na aplicação do método.
 
 \end{document}
 
