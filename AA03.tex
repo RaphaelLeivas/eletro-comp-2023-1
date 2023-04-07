@@ -1,0 +1,165 @@
+\documentclass[12pt]{scrartcl}
+
+% packages
+\usepackage[
+    a4paper, total={18cm, 26cm},
+    left=0.75in,
+    right=0.75in,
+    top=0.75in,
+    bottom=0.50in,
+    footskip=15pt
+]{geometry}
+\usepackage{lastpage}
+\usepackage{graphicx} % \includegraphics
+\usepackage{amsmath} % math
+\usepackage{steinmetz} % \phase
+\usepackage{import} % \import
+\usepackage{esdiff} % \diff
+\usepackage{fancyhdr} % header and footer
+
+% configs
+\setlength{\parindent}{0pt}
+\graphicspath{ {./PrintsQuestoes/} }
+
+% comandos
+\renewcommand{\familydefault}{\sfdefault}
+\newcommand{\un}[1]{\;\textrm{#1}}
+\newcommand{\logo}{\quad \Rightarrow \quad}
+\newcommand{\fase}[1]{\ensuremath{\phase{{#1}^{\circ}}}}
+
+\begin{document}
+
+\pagestyle{fancy}
+
+\fancyhead{}
+\fancyhead[R]{Matrícula: 2020028101}
+\fancyhead[L]{Eletromagnetismo Computacional - Atividade Avaliativa 03}
+\fancyfoot{}
+\fancyfoot[R]{Pág. \thepage \; / \pageref{LastPage}}
+
+\begin{center}
+    Aluno: Raphael Henrique Braga Leivas \\
+    Matrícula: 2020028101 \\[20pt]
+    Código fonte LaTeX desse arquivo pode ser visto em meu GitHub pessoal: \\
+    https://github.com/RaphaelLeivas/eletro-comp-2023-1
+\end{center}
+
+\hrule
+\vspace{1cm}
+
+Precisamos resolver o problema unidimensional para $f = \rho = 5$, $q = h = 1$.
+
+\begin{equation}\label{eqProblema}
+    \begin{cases}
+        u_{xx} + f = 0 \\
+        \noalign{\vskip9pt}
+        u(1) = q       \\
+        \noalign{\vskip9pt}
+        -u_x(0) = h
+    \end{cases}
+    \logo
+    \begin{cases}
+        u_{xx} = - \rho \\
+        \noalign{\vskip9pt}
+        u(1) = q        \\
+        \noalign{\vskip9pt}
+        -u_x(0) = h
+    \end{cases}
+\end{equation}
+
+Em \eqref{eqProblema}, temos uma EDO de segunda ordem com duas
+condições de contorno.
+
+\subsection*{1 Solução Analítica}
+
+Para $\rho$ constante, podemos resolver o problema por integração direta.
+Integrando ambos lados da EDO de \eqref{eqProblema}, temos
+
+\[
+    u_x = \int -\rho \, dx
+    \logo
+    u_x = - \rho x + C
+\]
+
+Usando a segunda condição de contorno,
+
+\[
+    -u_x(0) = h
+    \logo
+    -u_x(0) = + \rho (0) - C
+    \logo
+    h = + \rho (0) - C
+    \logo
+    C = - h
+\]
+
+Assim, temos a expressão de $u_x$
+
+\begin{equation}\label{eqUx}
+    u_x = - \rho x  - h
+\end{equation}
+
+Novamente integramos \eqref{eqUx} em ambos lados com respeito a $x$
+
+\[
+    u = \int -\rho x - h \, dx
+    \logo
+    u = - \rho \frac{x^2}{2} - hx + C
+\]
+
+Usando a primeira condição de contorno,
+
+\[
+    u(1) = q
+    \logo
+    u(1) = - \rho \frac{1^2}{2} - h(1) + C
+    \logo
+    q = - \frac{\rho}{2} - h + C
+    \logo
+    C = \frac{\rho}{2} + h + C
+\]
+
+Assim, temos a solução analítica de \eqref{eqProblema}
+
+\[
+    u = - \rho \frac{x^2}{2} - hx + \frac{\rho}{2} + h + C
+\]
+
+\begin{equation}\label{eqU}
+    u = \frac{\rho}{2} \left(1 - x^2\right) + h\left(1 - x\right) + q
+\end{equation}
+
+Substituindo os dados do enunciado, temos
+
+\[
+    u = \frac{5}{2} - \frac{5x^2}{2} + 1 - x + 1
+\]
+
+\begin{equation}\label{eqUsubstituida}
+    u(x) = -\frac{5}{2}x^2 - x + \frac{9}{2}
+\end{equation}
+
+\subsection*{2 Introdução FEM}
+
+É possível também encontrar a solução de \eqref{eqProblema} pelo método de elementos finitos (FEM). Antes disso, vamos descrever um passo a passo
+reproduzível para aplicar o FEM para resolver EDOs com condições de contorno da forma de \eqref{eqProblema}. \\
+
+Pelo FEM, temos que a solução de \eqref{eqProblema} é dada por
+
+\begin{equation}\label{eqUhFEM}
+    u^h(x) = \sum_{A=1}^n d_AN_A + qN_{n+1}
+\end{equation}
+
+onde
+
+\begin{itemize}
+    \item $n$: graus de liberdade escolhido para a solução;
+    \item $d_A$: A-ésimo coeficiente que se deseja encontrar;
+    \item $N_A$: A-ésima função linear de forma;
+    \item $qN_{n+1}$: Termo para garantir condições de contorno de $u^h(x)$.
+\end{itemize}
+
+Note que as funções $N_A(x)$ podem ser arbitrariamente escolhidas, desde que sejam lineares e satisfaçam a condição de $N_A(1) = 0$. 
+Contudo, usamos um processo para determinar as funções $N_A(x)$ de modo a facilitar o método:
+
+\end{document}
