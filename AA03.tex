@@ -19,7 +19,7 @@
 
 % configs
 \setlength{\parindent}{0pt}
-\graphicspath{ {./PrintsQuestoes/} }
+\graphicspath{ {./images/} }
 
 % comandos
 \renewcommand{\familydefault}{\sfdefault}
@@ -139,10 +139,12 @@ Substituindo os dados do enunciado, temos
     u(x) = -\frac{5}{2}x^2 - x + \frac{9}{2}
 \end{equation}
 
-\subsection*{2 Introdução FEM}
+\subsection*{2 Passo a Passo FEM}
 
-É possível também encontrar a solução de \eqref{eqProblema} pelo método de elementos finitos (FEM). Antes disso, vamos descrever um passo a passo
-reproduzível para aplicar o FEM para resolver EDOs com condições de contorno da forma de \eqref{eqProblema}. \\
+É possível também encontrar a solução de \eqref{eqProblema} pelo método de elementos finitos (FEM).
+Antes disso, vamos descrever um passo a passo
+reproduzível para aplicar o FEM para resolver EDOs com condições de contorno da forma de \eqref{eqProblema}.
+\newline
 
 Pelo FEM, temos que a solução de \eqref{eqProblema} é dada por
 
@@ -155,11 +157,149 @@ onde
 \begin{itemize}
     \item $n$: graus de liberdade escolhido para a solução;
     \item $d_A$: A-ésimo coeficiente que se deseja encontrar;
-    \item $N_A$: A-ésima função linear de forma;
+    \item $N_A$: A-ésima função linear de base;
     \item $qN_{n+1}$: Termo para garantir condições de contorno de $u^h(x)$.
 \end{itemize}
 
-Note que as funções $N_A(x)$ podem ser arbitrariamente escolhidas, desde que sejam lineares e satisfaçam a condição de $N_A(1) = 0$. 
-Contudo, usamos um processo para determinar as funções $N_A(x)$ de modo a facilitar o método:
+Usamos um critério para determinar as funções lineares de base $N_A(x)$, desde que satisfaçam á condição de $N_A(1) = 0, \forall A$.
+
+\begin{equation}\label{eqNax}
+    N_A(x) =
+    \begin{cases}
+        \frac{x - x_{A-1}}{h_{A-1}},   & x_{A-1} \leq x \leq x_A            \\
+        \noalign{\vskip9pt}
+        \frac{x_{A+1} - x}{h_{A}},   & x_{A} \leq x \leq x_{A-1}            \\
+        \noalign{\vskip9pt}
+        0,   & \textrm{caso contrário}        
+    \end{cases}
+    \quad , \quad 
+    N_A(x) =
+    \begin{cases}
+        \frac{x_2 - x}{h_1},   & A = 1 \quad \textrm{e} \quad x_{1} \leq x \leq x_2            \\
+        \noalign{\vskip9pt}
+        \frac{x - x_n}{h_n},   & A = n+1 \quad \textrm{e} \quad x_{n} \leq x \leq x_{n+1}            
+    \end{cases}
+\end{equation}
+
+Além disso, as funções de base valem 1 no nó de referência, e caem para zero nos nós vizinhos.
+
+\begin{equation}\label{NaxProperty}
+    N_A(x) = \begin{cases}
+        1,   & x = x_A            \\
+        \noalign{\vskip9pt}
+        0,   & x \neq x_A            \\          
+    \end{cases}
+\end{equation}
+
+Uma vez escolhidas as funções de base $N_A(x)$ através de \eqref{eqNax} ou \eqref{NaxProperty}, temos o sistema linear na forma matricial
+
+\begin{equation}\label{eqkdf}
+    Kd = F
+\end{equation}
+
+onde
+
+\begin{itemize}
+    \item $K$: matriz de rigidez;
+    \item $d$: vetor de coeficientes das funções $N_A(x)$ que queremos descobrir;
+    \item $F$: vetor de forças;
+\end{itemize}
+
+Cada elemento da matriz $K$, que possui dimensão $n \times  n$, é dado por
+
+\[
+    \left\{K_{ij}\right\} = a\left(N_i, N_j\right) = \int_{D} N_{i_x} N_{j_x} \, dx
+\] 
+
+O vetor força, com dimensão $n \times 1$ é dado por
+
+\[
+    \left\{F_{i}\right\} = \left(N_i, f\right) + N_i(0)h - a\left(N_i, qN_{n+1}\right)
+\] 
+
+Em que o operador $\left(f, g\right)$ é dado por
+
+\[
+    \left(f, g\right) = \int_{D} f \cdot g \, dx
+\] 
+
+Por fim, o vetor $d$ é o que queremos descobrir. Isolando-o em \eqref{eqkdf},
+
+\begin{equation}\label{eqdkf}
+    d = K^{-1}F
+\end{equation}
+
+Uma vez descoberto o vetor $d$, basta substituí-lo na expressão \eqref{eqUhFEM} que obtemos a resposta do problema dado pelo FEM.
+
+\subsection*{3 Solução do problema com três graus de liberdade}
+
+Vamos aplicar o passo a passo anterior para resolver o problema \eqref{eqProblema} pelo FEM com $n = 3$ graus de liberdade.
+A solução com $n = 3$ é  
+
+\[
+    u^h(x) = \sum_{A=1}^3 d_AN_A + qN_{n+1}
+    \logo
+    u^h(x) = d_1N_1 + d_2N_2 + d_3N_3 + qN_{n+1}
+\] 
+
+Agora vamos escolher as 4 funções de base $N_A(x)$ conforme o critério de \eqref{eqNax}. Em vez tentar achar as expressões das funções
+$N_A(x)$ através das equações de \eqref{eqNax}, é mais interessante usar a propriedade \eqref{NaxProperty} e fazer o desenho na mão,
+e depois extrair as expressões através do desenho.
+
+\begin{center}
+    \includegraphics[scale=0.5]{AA03_Nax.jpeg}
+\end{center}
+
+Discretizamos o domínio $\Omega = \left[0, 1\right]$ em 4 nós com espaçamento uniforme: 
+
+\[
+    x_1 = 0 \quad , \quad x_2 = \frac{1}{3} \quad , \quad x_3 = \frac{2}{3} \quad , \quad x_4 = 1
+\] 
+
+Com esses nós e o desenho das funções de base, temos as expressões das funções de base como
+
+\[
+    N_1(x) = \begin{cases}
+        1 - 3x,   &  0 \leq x \leq \frac{1}{3}           \\
+        \noalign{\vskip9pt}
+        0,   & \textrm{caso contrário}                     
+    \end{cases}
+\] 
+
+\[
+    N_2(x) = \begin{cases}
+        3x,   &  0 \leq x \leq \frac{1}{3}           \\
+        \noalign{\vskip9pt}
+        2 - 3x,   &  \frac{1}{3} \leq x \leq \frac{2}{3}           \\
+        \noalign{\vskip9pt}
+        0,   & \textrm{caso contrário}                     
+    \end{cases}
+\] 
+
+\[
+    N_3(x) = \begin{cases}
+        3x - 1,   &  \frac{1}{3} \leq x \leq \frac{2}{3}           \\
+        \noalign{\vskip9pt}
+        3 - 3x,   & \frac{2}{3} \leq x \leq 1            \\
+        \noalign{\vskip9pt}
+        0,   & \textrm{caso contrário}                     
+    \end{cases}
+\] 
+
+\[
+    N_4(x) = \begin{cases}
+        3x - 2,   &  \frac{2}{3} \leq x \leq 1         \\
+        \noalign{\vskip9pt}
+        0,   & \textrm{caso contrário}                                        
+    \end{cases}
+\] 
+
+Conhecidas as funções de base, agora precisamos encontrar as matrizes $K$, $d$ e $F$ do sistema matricial de \eqref{eqkdf}
+
+
+
 
 \end{document}
+
+
+
