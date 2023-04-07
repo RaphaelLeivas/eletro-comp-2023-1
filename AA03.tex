@@ -166,18 +166,18 @@ Usamos um critério para determinar as funções lineares de base $N_A(x)$, desd
 \begin{equation}\label{eqNax}
     N_A(x) =
     \begin{cases}
-        \frac{x - x_{A-1}}{h_{A-1}},   & x_{A-1} \leq x \leq x_A            \\
+        \frac{x - x_{A-1}}{h_{A-1}}, & x_{A-1} \leq x \leq x_A   \\
         \noalign{\vskip9pt}
-        \frac{x_{A+1} - x}{h_{A}},   & x_{A} \leq x \leq x_{A-1}            \\
+        \frac{x_{A+1} - x}{h_{A}},   & x_{A} \leq x \leq x_{A-1} \\
         \noalign{\vskip9pt}
-        0,   & \textrm{caso contrário}        
+        0,                           & \textrm{caso contrário}
     \end{cases}
-    \quad , \quad 
+    \quad , \quad
     N_A(x) =
     \begin{cases}
-        \frac{x_2 - x}{h_1},   & A = 1 \quad \textrm{e} \quad x_{1} \leq x \leq x_2            \\
+        \frac{x_2 - x}{h_1}, & A = 1 \quad \textrm{e} \quad x_{1} \leq x \leq x_2       \\
         \noalign{\vskip9pt}
-        \frac{x - x_n}{h_n},   & A = n+1 \quad \textrm{e} \quad x_{n} \leq x \leq x_{n+1}            
+        \frac{x - x_n}{h_n}, & A = n+1 \quad \textrm{e} \quad x_{n} \leq x \leq x_{n+1}
     \end{cases}
 \end{equation}
 
@@ -185,9 +185,9 @@ Além disso, as funções de base valem 1 no nó de referência, e caem para zer
 
 \begin{equation}\label{NaxProperty}
     N_A(x) = \begin{cases}
-        1,   & x = x_A            \\
+        1, & x = x_A    \\
         \noalign{\vskip9pt}
-        0,   & x \neq x_A            \\          
+        0, & x \neq x_A \\
     \end{cases}
 \end{equation}
 
@@ -209,19 +209,19 @@ Cada elemento da matriz $K$, que possui dimensão $n \times  n$, é dado por
 
 \[
     \left\{K_{ij}\right\} = a\left(N_i, N_j\right) = \int_{D} N_{i_x} N_{j_x} \, dx
-\] 
+\]
 
 O vetor força, com dimensão $n \times 1$ é dado por
 
 \[
     \left\{F_{i}\right\} = \left(N_i, f\right) + N_i(0)h - a\left(N_i, qN_{n+1}\right)
-\] 
+\]
 
 Em que o operador $\left(f, g\right)$ é dado por
 
 \[
     \left(f, g\right) = \int_{D} f \cdot g \, dx
-\] 
+\]
 
 Por fim, o vetor $d$ é o que queremos descobrir. Isolando-o em \eqref{eqkdf},
 
@@ -234,13 +234,13 @@ Uma vez descoberto o vetor $d$, basta substituí-lo na expressão \eqref{eqUhFEM
 \subsection*{3 Solução do problema com três graus de liberdade}
 
 Vamos aplicar o passo a passo anterior para resolver o problema \eqref{eqProblema} pelo FEM com $n = 3$ graus de liberdade.
-A solução com $n = 3$ é  
+A solução com $n = 3$ é
 
 \[
     u^h(x) = \sum_{A=1}^3 d_AN_A + qN_{n+1}
     \logo
     u^h(x) = d_1N_1 + d_2N_2 + d_3N_3 + qN_{n+1}
-\] 
+\]
 
 Agora vamos escolher as 4 funções de base $N_A(x)$ conforme o critério de \eqref{eqNax}. Em vez tentar achar as expressões das funções
 $N_A(x)$ através das equações de \eqref{eqNax}, é mais interessante usar a propriedade \eqref{NaxProperty} e fazer o desenho na mão,
@@ -250,54 +250,252 @@ e depois extrair as expressões através do desenho.
     \includegraphics[scale=0.5]{AA03_Nax.jpeg}
 \end{center}
 
-Discretizamos o domínio $\Omega = \left[0, 1\right]$ em 4 nós com espaçamento uniforme: 
+Discretizamos o domínio $\Omega = \left[0, 1\right]$ em 4 nós com espaçamento uniforme:
 
 \[
     x_1 = 0 \quad , \quad x_2 = \frac{1}{3} \quad , \quad x_3 = \frac{2}{3} \quad , \quad x_4 = 1
-\] 
+\]
 
 Com esses nós e o desenho das funções de base, temos as expressões das funções de base como
 
 \[
     N_1(x) = \begin{cases}
-        1 - 3x,   &  0 \leq x \leq \frac{1}{3}           \\
+        1 - 3x, & 0 \leq x \leq \frac{1}{3} \\
         \noalign{\vskip9pt}
-        0,   & \textrm{caso contrário}                     
+        0,      & \textrm{caso contrário}
     \end{cases}
-\] 
+\]
 
 \[
     N_2(x) = \begin{cases}
-        3x,   &  0 \leq x \leq \frac{1}{3}           \\
+        3x,     & 0 \leq x \leq \frac{1}{3}           \\
         \noalign{\vskip9pt}
-        2 - 3x,   &  \frac{1}{3} \leq x \leq \frac{2}{3}           \\
+        2 - 3x, & \frac{1}{3} \leq x \leq \frac{2}{3} \\
         \noalign{\vskip9pt}
-        0,   & \textrm{caso contrário}                     
+        0,      & \textrm{caso contrário}
     \end{cases}
-\] 
+\]
 
 \[
     N_3(x) = \begin{cases}
-        3x - 1,   &  \frac{1}{3} \leq x \leq \frac{2}{3}           \\
+        3x - 1, & \frac{1}{3} \leq x \leq \frac{2}{3} \\
         \noalign{\vskip9pt}
-        3 - 3x,   & \frac{2}{3} \leq x \leq 1            \\
+        3 - 3x, & \frac{2}{3} \leq x \leq 1           \\
         \noalign{\vskip9pt}
-        0,   & \textrm{caso contrário}                     
+        0,      & \textrm{caso contrário}
     \end{cases}
-\] 
+\]
 
 \[
     N_4(x) = \begin{cases}
-        3x - 2,   &  \frac{2}{3} \leq x \leq 1         \\
+        3x - 2, & \frac{2}{3} \leq x \leq 1 \\
         \noalign{\vskip9pt}
-        0,   & \textrm{caso contrário}                                        
+        0,      & \textrm{caso contrário}
     \end{cases}
-\] 
+\]
 
-Conhecidas as funções de base, agora precisamos encontrar as matrizes $K$, $d$ e $F$ do sistema matricial de \eqref{eqkdf}
+Conhecidas as funções de base, agora precisamos encontrar as matrizes $K$, $d$ e $F$ do sistema matricial de \eqref{eqkdf}.
 
+\begingroup
+\renewcommand*{\arraystretch}{2}
 
+\[
+    K =
+    \begin{bmatrix}
+        K_{11} & K_{12} & K_{13} \\
+        K_{21} & K_{22} & K_{23} \\
+        K_{31} & K_{32} & K_{33}
+    \end{bmatrix}
+\]
 
+\endgroup
+
+Podemos usar duas propriedades da matriz de rigidez para reduzir a quantidade de contas que teremos que fazer.
+\begin{itemize}
+    \item A matriz é simétrica em relação à diagonal principal;
+    \item A matriz é esparsa: elementos não vizinhos aos elementos da diagonal principal são nulos;
+\end{itemize}
+
+Assim, temos
+
+\begingroup
+\renewcommand*{\arraystretch}{2}
+
+\[
+    K =
+    \begin{bmatrix}
+        K_{11} & K_{12} & 0      \\
+        K_{12} & K_{22} & K_{23} \\
+        0      & K_{23} & K_{33}
+    \end{bmatrix}
+\]
+
+\endgroup
+
+Calculando os elementos um de cada vez, temos
+
+\[
+    K_{11} = a\left(N_1, N_1\right) = \int_{0}^{1} N_{1_x} N_{1_x} \, dx = \int_{0}^{\frac{1}{3}} (-3) (-3) \, dx = 3
+\]
+
+\[
+    K_{12} = a\left(N_1, N_2\right) = \int_{0}^{1} N_{1_x} N_{2_x} \, dx = \int_{0}^{\frac{1}{3}} (-3) (3) \, dx = - 3
+\]
+
+\[
+    K_{22} = a\left(N_2, N_2\right) = \int_{0}^{1} N_{2_x} N_{2_x} \, dx =
+    \int_{0}^{\frac{1}{3}} (3) (3) \, dx + \int_{\frac{1}{3}}^{\frac{2}{3}} (-3) (-3) \, dx  = 6
+\]
+
+\[
+    K_{23} = a\left(N_2, N_3\right) = \int_{0}^{1} N_{2_x} N_{3_x} \, dx =
+    \int_{\frac{1}{3}}^{\frac{2}{3}} (-3) (3) \, dx  = -3
+\]
+
+\[
+    K_{33} = a\left(N_3, N_3\right) = \int_{0}^{1} N_{3_x} N_{3_x} \, dx =
+    \int_{\frac{1}{3}}^{\frac{2}{3}} (3) (3) \, dx + \int_{\frac{2}{3}}^{1} (-3) (-3) \, dx  = 6
+\]
+
+Assim, a matriz $K$ e sua inversa $K^{-1}$ são dadas por
+
+\begingroup
+\renewcommand*{\arraystretch}{2}
+
+\[
+    K =
+    \begin{bmatrix}
+        3  & -3 & 0  \\
+        -3 & 6  & -3 \\
+        0  & -3 & 6
+    \end{bmatrix}
+    \logo K^{-1} = \frac{1}{3}
+    \begin{bmatrix}
+        3  & 2 & 1  \\
+        2 & 2  & 1 \\
+        1  & 1 & 1
+    \end{bmatrix}
+\]
+
+\endgroup
+
+O próximo passo é calcular o vetor de pesos $F$. Calculando um elemento de cada vez, temos
+
+\[
+    F_1 = (N_1, f) + N_1(0)h - a\left(N_1, qN_4\right) = 
+    \int_{0}^{1} \rho N_1(x) \, dx + (1)h - \int_{0}^{1} N_{1_x} qN_{4_x} 
+\]
+
+\[
+    = \rho \int_{0}^{\frac{1}{3}}  1 - 3x \, dx + h - 0 = \rho \left[x - 3\frac{x^2}{2}\right]_{0}^{\frac{1}{3}} + h
+     = \rho \left(\frac{1}{3} - \frac{3}{2}\frac{1}{9}\right) + h = h + \frac{1}{6}\rho
+\]
+
+\[
+    F_2 = (N_2, f) + N_2(0)h - a\left(N_2, qN_4\right) = 
+    \int_{0}^{1} \rho N_2(x) \, dx
+\]
+
+\[
+    = \rho \left[\int_{0}^{\frac{1}{3}}  3x \, dx  + \int_{\frac{1}{3}}^{\frac{2}{3}}  2 - 3x \, dx\right] =
+    \rho \left[\frac{3}{2}\frac{1}{9} + \left(2x - \frac{3}{2}x^2\right)_{\frac{1}{3}}^{\frac{2}{3}}  \right]
+    = \rho \left(\frac{1}{6} + \frac{1}{6}\right) = \frac{1}{3}\rho 
+\]
+
+\[
+    F_3 = (N_3, f) + N_3(0)h - a\left(N_3, qN_4\right) = 
+    \int_{0}^{1} \rho N_3(x) \, dx - \int_{\frac{2}{3}}^{1} N_{3_x} qN_{4_x} \, dx 
+\]
+
+\[
+    = \rho \left[\int_{\frac{1}{3}}^{\frac{2}{3}}  3x - 1 \, dx  + \int_{\frac{2}{3}}^{1}  3 - 3x \, dx\right] - q\int_{\frac{2}{3}}^{1} (-3) (3) \, dx =
+    \rho \frac{1}{3} + 3q
+\]
+
+Assim, temos o vetor de forças
+
+\begingroup
+\renewcommand*{\arraystretch}{2}
+
+\[
+    F =
+    \begin{bmatrix}
+        h + \frac{1}{6}\rho    \\
+        \frac{1}{3}\rho    \\
+        \rho \frac{1}{3} + 3q
+    \end{bmatrix}
+\]
+
+\endgroup
+
+Finalmente, usando \eqref{eqdkf}, o sistema matricial que nos dá a solução do vetor de coeficientes $d$ é
+
+\begingroup
+\renewcommand*{\arraystretch}{2}
+
+\[
+    \begin{bmatrix}
+        d_1    \\
+        d_2    \\
+        d_3
+    \end{bmatrix} =
+    \frac{1}{3}
+    \begin{bmatrix}
+        3  & 2 & 1  \\
+        2 & 2  & 1 \\
+        1  & 1 & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+        h + \frac{1}{6}\rho    \\
+        \frac{1}{3}\rho    \\
+        \rho \frac{1}{3} + 3q
+    \end{bmatrix}
+\]
+
+\endgroup
+
+Substituindo os valores do enunciado do problema, 
+
+\begingroup
+\renewcommand*{\arraystretch}{2}
+
+\[
+    \begin{bmatrix}
+        d_1    \\
+        d_2    \\
+        d_3
+    \end{bmatrix} =
+    \frac{1}{3}
+    \begin{bmatrix}
+        3  & 2 & 1  \\
+        2 & 2  & 1 \\
+        1  & 1 & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+        \frac{11}{6} \\
+        \frac{5}{3} \\
+        \frac{14}{3} 
+    \end{bmatrix}
+    \logo
+    \begin{bmatrix}
+        d_1    \\
+        d_2    \\
+        d_3
+    \end{bmatrix} =
+    \begin{bmatrix}
+        \frac{27}{2} \\
+        \frac{35}{3} \\
+        \frac{49}{6} 
+    \end{bmatrix}
+\]
+
+\endgroup
+
+Assim, a solução do problema encontrada pelo FEM é   
+
+\[ \boxed{u^h(x) = \frac{27}{2}N_1(x) + \frac{35}{3}N_2(x) + \frac{49}{6}N_3(x) + N_{4}(x)}  \]
+
+Plotando essa solução,
 
 \end{document}
 
