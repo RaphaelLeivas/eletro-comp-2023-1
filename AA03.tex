@@ -136,7 +136,7 @@ Substituindo os dados do enunciado, temos
 \]
 
 \begin{equation}\label{eqUsubstituida}
-    u(x) = -\frac{5}{2}x^2 - x + \frac{9}{2}
+    \boxed{u(x) = -\frac{5}{2}x^2 - x + \frac{9}{2}}
 \end{equation}
 
 \subsection*{2 Passo a Passo FEM}
@@ -161,7 +161,8 @@ onde
     \item $qN_{n+1}$: Termo para garantir condições de contorno de $u^h(x)$.
 \end{itemize}
 
-Usamos um critério para determinar as funções lineares de base $N_A(x)$, desde que satisfaçam á condição de $N_A(1) = 0, \forall A$.
+Usamos um critério para determinar as funções lineares de base $N_A(x)$, desde que satisfaçam á condição de $N_A(1) = 0, \forall A$,
+exibido nas equações abaixo.
 
 \begin{equation}\label{eqNax}
     N_A(x) =
@@ -208,10 +209,10 @@ onde
 Cada elemento da matriz $K$, que possui dimensão $n \times  n$, é dado por
 
 \[
-    \left\{K_{ij}\right\} = a\left(N_i, N_j\right) = \int_{D} N_{i_x} N_{j_x} \, dx
+    \left\{K_{ij}\right\} = a\left(N_i, N_j\right) = \int_{\Omega} N_{i_x} N_{j_x} \, dx
 \]
 
-O vetor força, com dimensão $n \times 1$ é dado por
+O vetor força, com dimensão $n \times 1$, é dado por
 
 \[
     \left\{F_{i}\right\} = \left(N_i, f\right) + N_i(0)h - a\left(N_i, qN_{n+1}\right)
@@ -220,7 +221,7 @@ O vetor força, com dimensão $n \times 1$ é dado por
 Em que o operador $\left(f, g\right)$ é dado por
 
 \[
-    \left(f, g\right) = \int_{D} f \cdot g \, dx
+    \left(f, g\right) = \int_{\Omega} f \cdot g \, dx
 \]
 
 Por fim, o vetor $d$ é o que queremos descobrir. Isolando-o em \eqref{eqkdf},
@@ -264,9 +265,7 @@ Com esses nós e o desenho das funções de base, temos as expressões das funç
         \noalign{\vskip9pt}
         0,      & \textrm{caso contrário}
     \end{cases}
-\]
-
-\[
+    \quad , \quad
     N_2(x) = \begin{cases}
         3x,     & 0 \leq x \leq \frac{1}{3}           \\
         \noalign{\vskip9pt}
@@ -284,9 +283,7 @@ Com esses nós e o desenho das funções de base, temos as expressões das funç
         \noalign{\vskip9pt}
         0,      & \textrm{caso contrário}
     \end{cases}
-\]
-
-\[
+    \quad , \quad
     N_4(x) = \begin{cases}
         3x - 2, & \frac{2}{3} \leq x \leq 1 \\
         \noalign{\vskip9pt}
@@ -294,7 +291,8 @@ Com esses nós e o desenho das funções de base, temos as expressões das funç
     \end{cases}
 \]
 
-Conhecidas as funções de base, agora precisamos encontrar as matrizes $K$, $d$ e $F$ do sistema matricial de \eqref{eqkdf}.
+Conhecidas as funções de base, agora precisamos encontrar as matrizes $K$, $d$ e $F$ do sistema matricial de \eqref{eqkdf}. 
+Sabemos que a matriz $K$ é $3 \times 3$ da forma
 
 \begingroup
 \renewcommand*{\arraystretch}{2}
@@ -379,7 +377,7 @@ Assim, a matriz $K$ e sua inversa $K^{-1}$ são dadas por
 
 \endgroup
 
-O próximo passo é calcular o vetor de pesos $F$. Calculando um elemento de cada vez, temos
+O próximo passo é calcular o vetor de forças $F$. Calculando um elemento de cada vez, temos
 
 \[
     F_1 = (N_1, f) + N_1(0)h - a\left(N_1, qN_4\right) = 
@@ -483,9 +481,9 @@ Substituindo os valores do enunciado do problema,
         d_3
     \end{bmatrix} =
     \begin{bmatrix}
-        \frac{27}{2} \\
-        \frac{35}{3} \\
-        \frac{49}{6} 
+        \frac{9}{2} \\
+        \frac{35}{9} \\
+        \frac{49}{18} 
     \end{bmatrix}
 \]
 
@@ -493,9 +491,14 @@ Substituindo os valores do enunciado do problema,
 
 Assim, a solução do problema encontrada pelo FEM é   
 
-\[ \boxed{u^h(x) = \frac{27}{2}N_1(x) + \frac{35}{3}N_2(x) + \frac{49}{6}N_3(x) + N_{4}(x)}  \]
+\begin{equation}\label{eqUfem}
+    \boxed{u^h(x) = \frac{9}{2}N_1(x) + \frac{35}{9}N_2(x) + \frac{49}{18}N_3(x) + N_{4}(x)}
+\end{equation}
 
-Plotando essa solução,
+
+Plotando a solução obtida pelo FEM \eqref{eqUfem} e a solução analítica \eqref{eqUsubstituida}, temos
+
+
 
 \end{document}
 
